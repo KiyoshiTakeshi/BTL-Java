@@ -11,11 +11,23 @@ import lombok.*;
 public class Suppliers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer supplierId; // Khóa chính
+    private Integer sId;
 
     @Column(nullable = false)
-    private String supplierName;
+    private String sName;
 
     @Column(nullable = false)
-    private String contactInfo;
+    private String sEmail;
+
+    @Column(nullable = false)
+    private String sPhone;
+
+    @Column(nullable = false)
+    private String sAddress;
+
+    @Column(nullable = false)
+    private Integer sType;
+
+    @Column(nullable = false)
+    private Integer sStatus;
 }
