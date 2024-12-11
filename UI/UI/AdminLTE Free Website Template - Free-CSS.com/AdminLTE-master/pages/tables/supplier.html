@@ -431,18 +431,18 @@
           fetch('http://localhost:8080/api/suppliers')
             .then(response => response.json())
             .then(data => {
-              console.log(data);  
+              console.log('Data fetched:',data);  
               const suppliersList = document.getElementById('suppliers-list');
               data.forEach(supplier => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                <td>${supplier.sId}</td>
-                <td>${supplier.sName}</td>
-                <td>${supplier.sEmail}</td>
-                <td>${supplier.sPhone}</td>
-                <td>${supplier.sAddress}</td>
-                <td>${supplier.sType}</td>
-              `;
+                  <td>${supplier.sid}</td>
+                  <td>${supplier.sname}</td>
+                  <td>${supplier.semail}</td>
+                  <td>${supplier.sphone}</td>
+                  <td>${supplier.saddress}</td>
+                  <td>${supplier.stype}</td>
+                  `;
                 suppliersList.appendChild(row);
               });
             })
