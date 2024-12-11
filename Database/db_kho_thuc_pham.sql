@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2024 at 07:59 AM
+-- Generation Time: Dec 11, 2024 at 07:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -139,6 +139,7 @@ INSERT INTO `inventory_transactions` (`transactionsid`, `fid`, `uid`, `sid`, `st
 CREATE TABLE `storage` (
   `strid` int(11) NOT NULL,
   `strname` varchar(255) NOT NULL,
+  `strphone` varchar(255) NOT NULL,
   `strlocation` varchar(255) NOT NULL,
   `strstatus` bit(1) DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -147,11 +148,11 @@ CREATE TABLE `storage` (
 -- Dumping data for table `storage`
 --
 
-INSERT INTO `storage` (`strid`, `strname`, `strlocation`, `strstatus`) VALUES
-(1, 'Kho Cầu Giấy', 'Số 15, Đường Xuân Thủy, Quận Cầu Giấy, Hà Nội', b'1'),
-(2, 'Kho Hai Bà Trưng', 'Số 25, Đường Lê Đại Hành, Quận Hai Bà Trưng, Hà Nội', b'1'),
-(3, 'Kho Long Biên', 'Số 30, Đường Ngô Gia Tự, Quận Long Biên, Hà Nội', b'1'),
-(4, 'Kho Hà Đông', 'Số 50, Đường Quang Trung, Quận Hà Đông, Hà Nội', b'1');
+INSERT INTO `storage` (`strid`, `strname`, `strphone`, `strlocation`, `strstatus`) VALUES
+(1, 'Kho Cầu Giấy', '089756382', 'Số 15, Đường Xuân Thủy, Quận Cầu Giấy, Hà Nội', b'1'),
+(2, 'Kho Hai Bà Trưng', '089475638', 'Số 25, Đường Lê Đại Hành, Quận Hai Bà Trưng, Hà Nội', b'1'),
+(3, 'Kho Long Biên', '089573629', 'Số 30, Đường Ngô Gia Tự, Quận Long Biên, Hà Nội', b'1'),
+(4, 'Kho Hà Đông', '089725617', 'Số 50, Đường Quang Trung, Quận Hà Đông, Hà Nội', b'1');
 
 -- --------------------------------------------------------
 

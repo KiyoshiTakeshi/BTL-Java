@@ -18,4 +18,7 @@ public class Storages {
 
     @Column(nullable = false)
     private String strLocation;
+
+    @Column(nullable = false)
+    private Integer strStatus;
 }

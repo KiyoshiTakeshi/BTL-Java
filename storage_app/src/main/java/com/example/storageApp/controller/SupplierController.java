@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/suppliers")
 public class SupplierController {
-
     @Autowired
     private SupplierService supplierService;
 
@@ -21,3 +20,4 @@ public class SupplierController {
         return supplierService.getValidSuppliers();
     }
 }
+

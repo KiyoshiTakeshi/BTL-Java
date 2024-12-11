@@ -15,17 +15,16 @@ public class SupplierService {
     @Autowired
     private SupplierRepository supplierRepository;
 
-    // Lấy danh sách nhà cung cấp hợp lệ
     public List<SupplierDTO> getValidSuppliers() {
-        List<Suppliers> suppliers = supplierRepository.findValidData();
+        List<SupplierDTO> suppliers = supplierRepository.findValidData();
         return suppliers.stream()
                 .map(supplier -> new SupplierDTO(
-                        supplier.getSId(),
-                        supplier.getSName(),
-                        supplier.getSEmail(),
-                        supplier.getSPhone(),
-                        supplier.getSAddress(),
-                        supplier.getSType() == 0 ? "Nhà cung cấp" : "Đại lý phân phối"
+                        supplier.getSid(),
+                        supplier.getSname(),
+                        supplier.getSemail(),
+                        supplier.getSphone(),
+                        supplier.getSaddress(),
+                        supplier.getStype() == 0 ? "Nhà cung cấp" : "Đại lý phân phối"
                 ))
                 .collect(Collectors.toList());
     }

@@ -11,23 +11,23 @@ import lombok.*;
 public class Suppliers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer sId;
+    private Integer sid;
 
     @Column(nullable = false)
-    private String sName;
+    private String sname;
 
     @Column(nullable = false)
-    private String sEmail;
+    private String semail;
 
     @Column(nullable = false)
-    private String sPhone;
+    private String sphone;
 
     @Column(nullable = false)
-    private String sAddress;
+    private String saddress;
 
     @Column(nullable = false)
-    private Integer sType;
+    private Integer stype;
 
     @Column(nullable = false)
-    private Integer sStatus;
+    private Integer sstatus;
 }
