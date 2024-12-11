@@ -433,16 +433,16 @@
             .then(data => {
               console.log(data);  
               const suppliersList = document.getElementById('suppliers-list');
-              data.forEach(suppliers => {
+              data.forEach(supplier => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-            <td>${suppliers.sId}</td>
-            <td>${suppliers.sName}</td>
-            <td>${suppliers.sEmail}</td>
-            <td>${suppliers.sPhone}</td>
-            <td>${suppliers.sAddress}</td>
-            <td>${suppliers.sType}</td>
-          `;
+                <td>${supplier.sId}</td>
+                <td>${supplier.sName}</td>
+                <td>${supplier.sEmail}</td>
+                <td>${supplier.sPhone}</td>
+                <td>${supplier.sAddress}</td>
+                <td>${supplier.sType}</td>
+              `;
                 suppliersList.appendChild(row);
               });
             })
