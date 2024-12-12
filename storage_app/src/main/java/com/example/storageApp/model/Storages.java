@@ -13,6 +13,7 @@ public class Storages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer strId;
 
+
     @Column(nullable = false)
     private String strName;
 
