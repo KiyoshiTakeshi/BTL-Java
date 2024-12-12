@@ -13,22 +13,22 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer uid;
 
-    @Column(nullable = false)
-    private String uName;
+    @Column
+    private String uname;
 
-    @Column(nullable = false)
-    private String uPassword;
+    @Column
+    private String upassword;
 
-    @Column(nullable = false)
-    private String uFullName;
+    @Column
+    private String ufullName;
 
-    @Column(nullable = false)
-    private String uPhone;
+    @Column
+    private String uphone;
 
-    @Column(nullable = false)
-    private String uRole;
+    @Column
+    private String urole;
 
-    @Column(nullable = false)
-    private String uStatus;
+    @Column
+    private String ustatus;
 
 }
