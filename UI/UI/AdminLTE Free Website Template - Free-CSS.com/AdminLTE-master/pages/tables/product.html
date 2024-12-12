@@ -10,7 +10,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-    <!-- Warehouse -->
+    <!-- Area -->
     <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
@@ -24,25 +24,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-    <style>
-      .button {
-        border: none;
-        color: white;
-        padding: 8px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 5px;
-        cursor: pointer;
-      }
-      
-      .button1 {background-color: #a7a8a8;} 
-      .button2 {background-color: #a7a8a8;} 
-      .button3 {background-color: #a7a8a8;} 
-      .button4 {background-color: #a7a8a8;} 
-      .button5 {background-color: #a7a8a8;} 
-      </style>
   </head>
   <body class="skin-blue">
     <div class="wrapper">
@@ -331,7 +312,7 @@
                 <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
               </ul>
             </li>
-            <li class="treeview active">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-table"></i> <span>Tables</span>
                 <i class="fa fa-angle-left pull-right"></i>
@@ -348,12 +329,14 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="#"><i class="fa fa-circle-o"></i> Warehouse <i class="fa fa-angle-left pull-right"></i></a>
+                  <a href="#"><i class="fa fa-circle-o"></i> Area <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
                     <li><a href="WhDD.html"><i class="fa fa-circle-o"></i> Dong Da</a></li>
                   </ul>
                   <li><a href="supplier.html"><i class="fa fa-circle-o"></i> Supplier</a></li>
-                </li>                
+                </li>   
+                <li>
+                  <li><a href="bill.html"><i class="fa fa-circle-o"></i> Bill</a></li>                </li>              
               </ul>
             </li>
             <li>
@@ -406,11 +389,13 @@
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
-                  <button class="button button1">Food</button>
-                  <button class="button button2">Fresh-food</button>
-                  <button class="button button3">Fruit</button>
-                  <button class="button button4">Seafood</button>
-                  <button class="button button5">Vegetable</button>
+                  <select size="1" name="example1_length" aria-controls="example1">
+                    <option value="Lương Thực" selected="selected">Lương Thực</option>
+                    <option value="Thực phẩm tươi sống">Thực phẩm tươi sống</option>
+                    <option value="Rau củ">Rau củ</option>
+                    <option value="Hải sản">Hải sản</option>
+                    <option value="Trái cây">Trái cây</option>
+                  </select>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
