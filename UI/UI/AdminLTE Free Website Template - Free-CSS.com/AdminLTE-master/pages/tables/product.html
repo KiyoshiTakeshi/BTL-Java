@@ -423,7 +423,7 @@
                         <th>Quantity</th>
                       </tr>
                     </thead>
-                    <tbody id="suppliers-list">
+                    <tbody id="products-list">
                       <!-- Dữ liệu sẽ được chèn vào đây -->
                     </tbody>
                     <tfoot>
@@ -439,25 +439,24 @@
   
         <script>
           document.addEventListener("DOMContentLoaded", function () {
-            fetch('http://localhost:8080/api/suppliers')
+            fetch('http://localhost:8080/api/products')
               .then(response => response.json())
               .then(data => {
                 console.log('Data fetched:',data);  
-                const suppliersList = document.getElementById('suppliers-list');
-                data.forEach(supplier => {
+                const productsList = document.getElementById('products-list');
+                data.forEach(product => {
                   const row = document.createElement('tr');
                   row.innerHTML = `
-                    <td>${supplier.sid}</td>
-                    <td>${supplier.sname}</td>
-                    <td>${supplier.semail}</td>
-                    <td>${supplier.sphone}</td>
-                    <td>${supplier.saddress}</td>
-                    <td>${supplier.stype}</td>
+                    <td>${product.pid}</td>
+                    <td>${product.pname}</td>
+                    <td>${product.pdescribe}</td>
+                    <td>${product.pprice}</td>
+                    <td>${product.pquantity}</td>
                     `;
-                  suppliersList.appendChild(row);
+                  productsList.appendChild(row);
                 });
               })
-              .catch(error => console.error('Error fetching suppliers:', error));
+              .catch(error => console.error('Error fetching products:', error));
           });
         </script>
     <!-- jQuery 2.1.3 -->
