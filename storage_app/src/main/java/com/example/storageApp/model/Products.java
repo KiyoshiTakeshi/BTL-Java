@@ -8,26 +8,23 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Suppliers {
+public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer sid;
+    private Integer pid;
 
     @Column
-    private String sname;
+    private String pname;
 
     @Column
-    private String semail;
+    private String pdescribe;
 
     @Column
-    private String sphone;
+    private Double pprice;
 
     @Column
-    private String saddress;
+    private Integer pquantity;
 
     @Column
-    private String stype;
-
-    @Column
-    private Integer sstatus;
+    private Integer pstatus;
 }

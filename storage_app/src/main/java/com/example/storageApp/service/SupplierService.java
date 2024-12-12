@@ -1,7 +1,6 @@
 package com.example.storageApp.service;
 
 import com.example.storageApp.dto.SupplierDTO;
-import com.example.storageApp.model.Suppliers;
 import com.example.storageApp.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +15,15 @@ public class SupplierService {
     private SupplierRepository supplierRepository;
 
     public List<SupplierDTO> getValidSuppliers() {
-        List<SupplierDTO> suppliers = supplierRepository.findValidData();
+        List<SupplierDTO> suppliers = supplierRepository.findSupplierData();
         return suppliers.stream()
                 .map(supplier -> new SupplierDTO(
-                        supplier.getSid(),
-                        supplier.getSname(),
-                        supplier.getSemail(),
-                        supplier.getSphone(),
-                        supplier.getSaddress(),
-                        supplier.getStype() == 0 ? "Nhà cung cấp" : "Đại lý phân phối"
+                        supplier.getSId(),
+                        supplier.getSName(),
+                        supplier.getSEmail(),
+                        supplier.getSPhone(),
+                        supplier.getSAddress(),
+                        supplier.getSType()
                 ))
                 .collect(Collectors.toList());
     }
