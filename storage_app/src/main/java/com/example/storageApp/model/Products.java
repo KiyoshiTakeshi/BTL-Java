@@ -1,6 +1,7 @@
 package com.example.storageApp.model;
 
 import jakarta.persistence.*;
+import jdk.jfr.Category;
 import lombok.*;
 
 @Data
@@ -27,4 +28,8 @@ public class Products {
 
     @Column
     private Integer pstatus;
+
+    @ManyToOne
+    @JoinColumn(name = "cid")
+    private Categories  category;
 }
