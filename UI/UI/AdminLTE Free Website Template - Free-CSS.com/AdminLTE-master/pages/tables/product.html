@@ -448,6 +448,45 @@
                 </div>
               </div>
 
+              <!-- Edit Product Popup Modal -->
+              <div id="editModal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Edit Product</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form id="editForm">
+                        <div class="form-group">
+                          <label for="editName">Name</label>
+                          <input type="text" class="form-control" id="editName" placeholder="Name" />
+                        </div>
+                        <div class="form-group">
+                          <label for="editDescription">Description</label>
+                          <input type="text" class="form-control" id="editDescription" placeholder="Description" />
+                        </div>
+                        <div class="form-group">
+                          <label for="editPrice">Price</label>
+                          <input type="number" class="form-control" id="editPrice" placeholder="Price" />
+                        </div>
+                        <div class="form-group">
+                          <label for="editQuantity">Quantity</label>
+                          <input type="number" class="form-control" id="editQuantity" placeholder="Quantity" />
+                        </div>
+                        <input type="hidden" id="editId" />
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" id="saveEditProduct">Save</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <script>
                 // Add event listener for 'Add new' button
                 document.getElementById('addNew').addEventListener('click', function () {
@@ -463,7 +502,6 @@
                     pprice: document.getElementById('addPrice').value,
                     pquantity: document.getElementById('addQuantity').value,
                   };
-
                   fetch('http://localhost:8080/api/products', {
                     method: 'POST',
                     headers: {
@@ -484,22 +522,58 @@
                 });
 
                 document.addEventListener("DOMContentLoaded", function () {
-                  const categorySelect = document.getElementById('categorySelect'); 
-                  fetchProductsByCategory(1);
+                  const addNewButton = document.getElementById('addNew');
+                  const saveNewProductButton = document.getElementById('saveNewProduct');
+                  const productsList = document.getElementById('products-list');
+                  const categorySelect = document.getElementById('categorySelect');
 
+                  // Load sản phẩm lần đầu theo danh mục
                   categorySelect.addEventListener('change', function () {
-                    const selectedCategory = this.value;
-                    console.log("Selected Category: " + selectedCategory);
-                    fetchProductsByCategory(selectedCategory);
+                    fetchProductsByCategory(this.value);
                   });
 
-                  // Function to fetch products by category
+                  fetchProductsByCategory(1);
+
+                  // Thêm sản phẩm mới
+                  if (addNewButton) {
+                    addNewButton.addEventListener('click', function () {
+                      document.getElementById('addForm').reset();
+                      $('#addModal').modal('show');
+                    });
+                  }
+
+                  if (saveNewProductButton) {
+                    saveNewProductButton.addEventListener('click', function () {
+                      const newProduct = {
+                        pname: document.getElementById('addName').value,
+                        pdescribe: document.getElementById('addDescription').value,
+                        pprice: document.getElementById('addPrice').value,
+                        pquantity: document.getElementById('addQuantity').value,
+                      };
+                      fetch('http://localhost:8080/api/products', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newProduct),
+                      })
+                        .then(response => {
+                          if (response.ok) {
+                            alert('Product added successfully');
+                            $('#addModal').modal('hide');
+                            fetchProductsByCategory(categorySelect.value); // Tải lại danh sách sản phẩm
+                          } else {
+                            alert('Failed to add product');
+                          }
+                        })
+                        .catch(error => console.error('Error adding product:', error));
+                    });
+                  }
+
+                  // Tải sản phẩm theo danh mục
                   function fetchProductsByCategory(categoryId) {
                     fetch(`http://localhost:8080/api/products/category/${categoryId}`)
                       .then(response => response.json())
                       .then(data => {
-                        const productsList = document.getElementById('products-list');
-                        productsList.innerHTML = ''; 
+                        productsList.innerHTML = '';
                         data.forEach(product => {
                           const row = document.createElement('tr');
                           row.innerHTML = `
@@ -509,52 +583,87 @@
                           <td>${product.pprice}</td>
                           <td>${product.pquantity}</td>
                           <td>
-                              <div class="btn-group">
-                                  <button type="button" class="btn btn-default btn-edit" data-product='${JSON.stringify(product)}'>Edit</button>
-                                  <button type="button" class="btn btn-default btn-delete" data-id='${product.pId}'>Delete</button>
-                              </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-default btn-edit" data-product='${JSON.stringify(product)}'>Edit</button>
+                              <button type="button" class="btn btn-default btn-delete" data-id='${product.pid}'>Delete</button>
+                            </div>
                           </td>
-                      `;
+                        `;
                           productsList.appendChild(row);
                         });
-
-                        // Add event listeners for edit and delete buttons
-                        document.querySelectorAll('.btn-edit').forEach(button => {
-                          button.addEventListener('click', function () {
-                            const product = JSON.parse(this.getAttribute('data-product'));
-                            document.getElementById('editId').value = product.pId;
-                            document.getElementById('editName').value = product.pName;
-                            document.getElementById('editDescription').value = product.pDescribe;
-                            document.getElementById('editPrice').value = product.pPrice;
-                            document.getElementById('editQuantity').value = product.pQuantity;
-                            $('#editModal').modal('show');
-                          });
-                        });
-
-                        // Add event listener for delete buttons
-                        document.querySelectorAll('.btn-delete').forEach(button => {
-                          button.addEventListener('click', function () {
-                            const productId = this.getAttribute('data-id');
-                            if (confirm('Are you sure you want to delete this product?')) {
-                              fetch(`http://localhost:8080/api/products/${productId}`, {
-                                method: 'DELETE',
-                              })
-                                .then(response => {
-                                  if (response.ok) {
-                                    alert('Product deleted successfully');
-                                    location.reload();
-                                  } else {
-                                    alert('Failed to delete product');
-                                  }
-                                })
-                                .catch(error => console.error('Error deleting product:', error));
-                            }
-                          });
-                        });
+                        attachEventListeners();
                       })
                       .catch(error => console.error('Error fetching products:', error));
                   }
+
+                  // Gắn sự kiện cho nút Edit và Delete
+                  function attachEventListeners() {
+                    // Edit button
+                    document.querySelectorAll('.btn-edit').forEach(button => {
+                      button.addEventListener('click', function () {
+                        const product = JSON.parse(this.getAttribute('data-product'));
+                        document.getElementById('editId').value = product.pid;
+                        document.getElementById('editName').value = product.pname;
+                        document.getElementById('editDescription').value = product.pdescribe;
+                        document.getElementById('editPrice').value = product.pprice;
+                        document.getElementById('editQuantity').value = product.pquantity;
+                        $('#editModal').modal('show');
+                      });
+                    });
+
+                    // Delete button
+                    document.querySelectorAll('.btn-delete').forEach(button => {
+                      button.addEventListener('click', function () {
+                        const productId = this.getAttribute('data-id');
+                        if (confirm('Are you sure you want to delete this product?')) {
+                          fetch(`http://localhost:8080/api/products/${productId}`, { method: 'DELETE' })
+                            .then(response => {
+                              if (response.ok) {
+                                alert('Product deleted successfully');
+                                fetchProductsByCategory(categorySelect.value); // Tải lại danh sách
+                              } else {
+                                alert('Failed to delete product');
+                              }
+                            })
+                            .catch(error => console.error('Error deleting product:', error));
+                        }
+                      });
+                    });
+                  }
+
+                  // Sửa sản phẩm
+                  const saveEditedProductButton = document.getElementById('saveEditedProduct');
+                  if (saveEditedProductButton) {
+                    saveEditedProductButton.addEventListener('click', function () {
+                      const editedProduct = {
+                        pid: document.getElementById('editId').value,
+                        pname: document.getElementById('editName').value,
+                        pdescribe: document.getElementById('editDescription').value,
+                        pprice: document.getElementById('editPrice').value,
+                        pquantity: document.getElementById('editQuantity').value,
+                      };
+
+                      fetch(`http://localhost:8080/api/products/${editedProduct.pid}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(editedProduct),
+                      })
+                        .then(response => {
+                          if (response.ok) {
+                            alert('Product updated successfully');
+                            $('#editModal').modal('hide');
+                            fetchProductsByCategory(categorySelect.value);
+                          } else {
+                            alert('Failed to update product');
+                          }
+                        })
+                        .catch(error => console.error('Error updating product:', error));
+                    });
+                  }
+
+
                 });
+
               </script>
 
               <div class="box-body">
