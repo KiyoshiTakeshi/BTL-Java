@@ -1,6 +1,7 @@
 package com.example.storageApp.service;
 
 import com.example.storageApp.dto.SupplierDTO;
+import com.example.storageApp.model.Products;
 import com.example.storageApp.model.Suppliers;
 import com.example.storageApp.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,8 @@ public class SupplierService {
     @Autowired
     private SupplierRepository supplierRepository;
 
-    public List<SupplierDTO> getValidSuppliers() {
-        List<SupplierDTO> suppliers = supplierRepository.findSupplierData();
-        return suppliers.stream()
-                .map(supplier -> new SupplierDTO(
-                        supplier.getSId(),
-                        supplier.getSName(),
-                        supplier.getSEmail(),
-                        supplier.getSPhone(),
-                        supplier.getSAddress(),
-                        supplier.getSType()
-                ))
-                .collect(Collectors.toList());
+    public List<Suppliers> getSuppliersByType(String stype) {
+        return supplierRepository.findSuppliersByType(stype);
     }
 
     public void addSupplier(SupplierDTO supplierDTO) {
@@ -36,16 +27,14 @@ public class SupplierService {
         supplier.setSphone(supplierDTO.getSPhone());
         supplier.setSaddress(supplierDTO.getSAddress());
         supplier.setStype(supplierDTO.getSType());
-        supplier.setSstatus(1); //
+        supplier.setSstatus(1); // Mặc định trạng thái là active
         supplierRepository.save(supplier);
     }
 
-    // Cập nhật thông tin nhà cung cấp
     public void updateSupplier(Integer id, SupplierDTO supplierDTO) {
         Suppliers existingSupplier = supplierRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Supplier not found with id: " + id));
 
-        // Cập nhật thông tin
         existingSupplier.setSname(supplierDTO.getSName());
         existingSupplier.setSemail(supplierDTO.getSEmail());
         existingSupplier.setSphone(supplierDTO.getSPhone());
@@ -55,8 +44,11 @@ public class SupplierService {
         supplierRepository.save(existingSupplier);
     }
 
-    // Xoá nhà cung cấp theo ID
     public void softDeleteSupplier(Integer id) {
-        supplierRepository.softDeleteById(id);
+        Suppliers existingSupplier = supplierRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Supplier not found with id: " + id));
+
+        existingSupplier.setSstatus(0);
+        supplierRepository.save(existingSupplier);
     }
 }

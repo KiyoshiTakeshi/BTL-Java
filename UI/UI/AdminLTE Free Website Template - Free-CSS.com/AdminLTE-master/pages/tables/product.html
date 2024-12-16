@@ -401,7 +401,7 @@
             <div class="box">
               <div class="box-header">
                 <select id="categorySelect" size="1" name="categories" aria-controls="example1">
-                  <option value="1" selected="selected">Lương Thực</option>
+                  <option value="1">Lương Thực</option>
                   <option value="2">Thực phẩm tươi sống</option>
                   <option value="3">Rau củ</option>
                   <option value="4">Hải sản</option>
@@ -488,122 +488,45 @@
               </div>
 
               <script>
-                // Load list
-                categorySelect.addEventListener('change', function () {
-                  fetchProductsByCategory(this.value);
-                });
-
-                // Add event listener for 'Add new' button
-                document.getElementById('addNew').addEventListener('click', function () {
-                  document.getElementById('addForm').reset();
-                  $('#addModal').modal('show');
-                });
-
-                // Save new product
-                document.getElementById('saveNewProduct').addEventListener('click', function () {
-                  const newProduct = {
-                    pname: document.getElementById('addName').value,
-                    pdescribe: document.getElementById('addDescription').value,
-                    pprice: document.getElementById('addPrice').value,
-                    pquantity: document.getElementById('addQuantity').value,
-                  };
-                  fetch('http://localhost:8080/api/products', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(newProduct),
-                  })
-                    .then(response => {
-                      if (response.ok) {
-                        alert('Product added successfully');
-                        $('#addModal').modal('hide'); // Close modal
-                        location.reload(); // Reload to show the new product
-                      } else {
-                        alert('Failed to add product');
-                      }
-                    })
-                    .catch(error => console.error('Error adding product:', error));
-                });
-
                 document.addEventListener("DOMContentLoaded", function () {
-                  const addNewButton = document.getElementById('addNew');
-                  const saveNewProductButton = document.getElementById('saveNewProduct');
                   const productsList = document.getElementById('products-list');
                   const categorySelect = document.getElementById('categorySelect');
-
-                  // Thêm sản phẩm mới
-                  if (addNewButton) {
-                    addNewButton.addEventListener('click', function () {
-                      document.getElementById('addForm').reset();
-                      $('#addModal').modal('show');
-                    });
-                  }
-
-                  if (saveNewProductButton) {
-                    saveNewProductButton.addEventListener('click', function () {
-                      const newProduct = {
-                        pname: document.getElementById('addName').value,
-                        pdescribe: document.getElementById('addDescription').value,
-                        pprice: document.getElementById('addPrice').value,
-                        pquantity: document.getElementById('addQuantity').value,
-                      };
-                      fetch('http://localhost:8080/api/products', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(newProduct),
-                      })
-                        .then(response => {
-                          if (response.ok) {
-                            alert('Product added successfully');
-                            $('#addModal').modal('hide');
-                            fetchProductsByCategory(categorySelect.value); // Tải lại danh sách sản phẩm
-                          } else {
-                            alert('Failed to add product');
-                          }
-                        })
-                        .catch(error => console.error('Error adding product:', error));
-                    });
-                  }
-
+                  const addNewButton = document.getElementById('addNew');
+                  const saveNewProductButton = document.getElementById('saveNewProduct');
+                  const saveEditedProductButton = document.getElementById('saveEditProduct');
+              
+                  // Fetch products by category
                   function fetchProductsByCategory(categoryId) {
                     fetch(`http://localhost:8080/api/products/category/${categoryId}`)
                       .then(response => response.json())
                       .then(data => {
-                        // Lọc chỉ lấy sản phẩm có pstatus = 1
                         const filteredProducts = data.filter(product => product.pstatus === 1);
-
-                        // Xóa nội dung cũ trong bảng
                         productsList.innerHTML = '';
-
-                        // Duyệt qua các sản phẩm đã lọc và thêm vào bảng
                         filteredProducts.forEach(product => {
                           const row = document.createElement('tr');
                           row.innerHTML = `
-                          <td>${product.pid}</td>
-                          <td>${product.pname}</td>
-                          <td>${product.pdescribe}</td>
-                          <td>${product.pprice}</td>
-                          <td>${product.pquantity}</td>
-                          <td>
-                            <div class="btn-group">
-                              <button type="button" class="btn btn-default btn-edit" data-product='${JSON.stringify(product)}'>Edit</button>
-                              <button type="button" class="btn btn-default btn-delete" data-id='${product.pid}'>Delete</button>
-                            </div>
-                          </td>
-                        `;
+                            <td>${product.pid}</td>
+                            <td>${product.pname}</td>
+                            <td>${product.pdescribe}</td>
+                            <td>${product.pprice}</td>
+                            <td>${product.pquantity}</td>
+                            <td>
+                              <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-edit" data-product='${JSON.stringify(product)}'>Edit</button>
+                                <button type="button" class="btn btn-default btn-delete" data-id='${product.pid}'>Delete</button>
+                              </div>
+                            </td>
+                          `;
                           productsList.appendChild(row);
                         });
-
+              
                         attachEventListeners();
                       })
                       .catch(error => console.error('Error fetching products:', error));
                   }
-
-
-                  // Gắn sự kiện cho nút Edit và Delete
+              
+                  // Attach event listeners for Edit and Delete buttons
                   function attachEventListeners() {
-                    // Edit button
                     document.querySelectorAll('.btn-edit').forEach(button => {
                       button.addEventListener('click', function () {
                         const product = JSON.parse(this.getAttribute('data-product'));
@@ -615,8 +538,7 @@
                         $('#editModal').modal('show');
                       });
                     });
-
-                    // Delete button
+              
                     document.querySelectorAll('.btn-delete').forEach(button => {
                       button.addEventListener('click', function () {
                         const productId = this.getAttribute('data-id');
@@ -625,7 +547,7 @@
                             .then(response => {
                               if (response.ok) {
                                 alert('Product deleted successfully');
-                                fetchProductsByCategory(categorySelect.value); // Tải lại danh sách
+                                fetchProductsByCategory(categorySelect.value);
                               } else {
                                 alert('Failed to delete product');
                               }
@@ -635,45 +557,71 @@
                       });
                     });
                   }
-
-                  // Sửa sản phẩm
-                  const saveEditedProductButton = document.getElementById('saveEditProduct');
-                  if (saveEditedProductButton) {
-                    saveEditedProductButton.addEventListener('click', function () {
-                      const editedProduct = {
-                        pid: document.getElementById('editId').value,
-                        pname: document.getElementById('editName').value,
-                        pdescribe: document.getElementById('editDescription').value,
-                        pprice: document.getElementById('editPrice').value,
-                        pquantity: document.getElementById('editQuantity').value,
-                      };
-
-                      console.log('Edited Product:', editedProduct);
-
-
-                      fetch(`http://localhost:8080/api/products/${editedProduct.pid}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(editedProduct),
+              
+                  // Add new product
+                  addNewButton.addEventListener('click', function () {
+                    document.getElementById('addForm').reset();
+                    $('#addModal').modal('show');
+                  });
+              
+                  saveNewProductButton.addEventListener('click', function () {
+                    const newProduct = {
+                      pname: document.getElementById('addName').value,
+                      pdescribe: document.getElementById('addDescription').value,
+                      pprice: document.getElementById('addPrice').value,
+                      pquantity: document.getElementById('addQuantity').value,
+                    };
+                    fetch('http://localhost:8080/api/products', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(newProduct),
+                    })
+                      .then(response => {
+                        if (response.ok) {
+                          alert('Product added successfully');
+                          $('#addModal').modal('hide');
+                          fetchProductsByCategory(categorySelect.value);
+                        } else {
+                          alert('Failed to add product');
+                        }
                       })
-                        .then(response => {
-                          if (response.ok) {
-                            alert('Product updated successfully');
-                            $('#editModal').modal('hide');
-                            fetchProductsByCategory(categorySelect.value);
-                          } else {
-                            alert('Failed to update product');
-                          }
-                        })
-                        .catch(error => console.error('Error updating product:', error));
-                    });
-                  }
-
-                  fetchProductsByCategory(1);
-
-
+                      .catch(error => console.error('Error adding product:', error));
+                  });
+              
+                  // Save edited product
+                  saveEditedProductButton.addEventListener('click', function () {
+                    const editedProduct = {
+                      pid: document.getElementById('editId').value,
+                      pname: document.getElementById('editName').value,
+                      pdescribe: document.getElementById('editDescription').value,
+                      pprice: document.getElementById('editPrice').value,
+                      pquantity: document.getElementById('editQuantity').value,
+                    };
+                    fetch('http://localhost:8080/api/products', {
+                      method: 'PUT',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(editedProduct),
+                    })
+                      .then(response => {
+                        if (response.ok) {
+                          alert('Product updated successfully');
+                          $('#editModal').modal('hide');
+                          fetchProductsByCategory(categorySelect.value);
+                        } else {
+                          alert('Failed to update product');
+                        }
+                      })
+                      .catch(error => console.error('Error updating product:', error));
+                  });
+              
+                  // Initial load of products for selected category
+                  categorySelect.addEventListener('change', function () {
+                    fetchProductsByCategory(this.value);
+                  });
+              
+                  // Fetch initial products
+                  fetchProductsByCategory(categorySelect.value);
                 });
-
               </script>
 
               <div class="box-body">
