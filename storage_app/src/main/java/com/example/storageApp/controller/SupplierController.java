@@ -1,7 +1,6 @@
 package com.example.storageApp.controller;
 
 import com.example.storageApp.dto.SupplierDTO;
-import com.example.storageApp.model.Products;
 import com.example.storageApp.model.Suppliers;
 import com.example.storageApp.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;

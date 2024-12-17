@@ -1,7 +1,6 @@
 package com.example.storageApp.service;
 
 import com.example.storageApp.dto.SupplierDTO;
-import com.example.storageApp.model.Products;
 import com.example.storageApp.model.Suppliers;
 import com.example.storageApp.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class SupplierService {
         supplier.setSphone(supplierDTO.getSPhone());
         supplier.setSaddress(supplierDTO.getSAddress());
         supplier.setStype(supplierDTO.getSType());
-        supplier.setSstatus(1); // Mặc định trạng thái là active
+        supplier.setSstatus(1);
         supplierRepository.save(supplier);
     }
 
