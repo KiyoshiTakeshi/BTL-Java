@@ -242,15 +242,65 @@
                   <!-- User image -->
                   <li class="user-header">
                     <img src="f8a2560a-ec14-4817-847d-7f46f7bf6923.jpg" class="img-circle" alt="User Image" />
-                    <p>
+                     <p>
                       Quoc Anh - Admin
-                      <small>Member since Nov. 2012</small>
+                      <small>Member since Dec. 2024</small>
                     </p>
                   </li>
-                  <!-- Menu Footer-->
                   <li class="user-footer">
+                    <!-- Nút Profile -->
                     <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                      <button class="btn btn-default btn-flat" data-toggle="modal" data-target="#profileModal">Profile</button>
+                    </div>
+                    
+                    <!-- Popup Modal -->
+                    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="profileModalLabel">Profile</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <!-- Modal Body -->
+                          <div class="modal-body">
+                            <form role="form">
+                              <!-- Text Input -->
+                              <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" placeholder="Name" disabled>
+                              </div>
+                              <div class="form-group">
+                                <label>Identity Card</label>
+                                <input type="text" class="form-control" placeholder="Identity Card" disabled>
+                              </div>
+                              <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" class="form-control" placeholder="Phone">
+                              </div>
+                              <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" class="form-control" placeholder="Address">
+                              </div>
+                              <div class="form-group">
+                                <label>User Name</label>
+                                <input type="text" class="form-control" placeholder="User Name" disabled>
+                              </div>
+                              <div class="form-group">
+                                <label>Password</label>
+                                <input type="text" class="form-control" placeholder="Password">
+                              </div>
+                            </form>
+                          </div>
+                          <!-- Modal Footer -->
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="editProfile">Edit</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="pull-right">
                       <a href="pages/examples/login.html" class="btn btn-default btn-flat">Sign out</a>
@@ -304,13 +354,10 @@
               <ul class="treeview-menu">
                 <li>
                   <a href="pages/tables/product.html"><i class="fa fa-circle-o"></i> Product </a>
-                </li>
-                <li>
                   <a href="pages/tables/area.html"><i class="fa fa-circle-o"></i> Area </a>
-                  <li><a href="pages/tables/supplier.html"><i class="fa fa-circle-o"></i> Supplier</a></li>
-                </li>   
-                <li>
-                  <li><a href="pages/tables/bill.html"><i class="fa fa-circle-o"></i> Bill</a></li>                </li>              
+                  <a href="pages/tables/supplier.html"><i class="fa fa-circle-o"></i> Supplier</a>
+                  <a href="pages/tables/bill.html"><i class="fa fa-circle-o"></i> Bill</a>
+                </li>             
               </ul>
             </li>
             <li>
@@ -325,19 +372,12 @@
                 <small class="label pull-right bg-yellow">12</small>
               </a>
             </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-folder"></i> <span>Examples</span>
-                <i class="fa fa-angle-left pull-right"></i>
+            <li>
+              <a href="pages/member.html">
+                <i class="fa fa-user"></i> <span>Member</span> 
               </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-              </ul>
             </li>
+             
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -593,8 +633,6 @@
                     }).zoomAtPointBy(3.8, { x: 383, y: 183 });
                 };
             </script>
-            
-
             </div><!-- /.col -->
 
             <div class="col-md-4">
@@ -654,273 +692,21 @@
             </div><!-- /.col -->
           </div><!-- /.row -->
 
-          <div class='row'>
-            <div class='col-md-4'>
-              <!-- DIRECT CHAT -->
-              <div id="myDirectChat" class="box box-warning direct-chat direct-chat-warning">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Direct Chat</h3>
-                  <div class="box-tools pull-right">
-                    <span data-toggle="tooltip" title="3 New Messages" class='badge bg-yellow'>3</span>
-                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                  <!-- Conversations are loaded here -->
-                  <div class="direct-chat-messages">
-                    <!-- Message. Default to the left -->
-                    <div class="direct-chat-msg">
-                      <div class='direct-chat-info clearfix'>
-                        <span class='direct-chat-name pull-left'>Quoc Anh</span>
-                        <span class='direct-chat-timestamp pull-right'>23 Jan 2:00 pm</span>
-                      </div><!-- /.direct-chat-info -->
-                      <img class="direct-chat-img" src="f8a2560a-ec14-4817-847d-7f46f7bf6923.jpg" alt="message user image" /><!-- /.direct-chat-img -->
-                      <div class="direct-chat-text">
-                       That's unbelievable!
-                      </div><!-- /.direct-chat-text -->
-                    </div><!-- /.direct-chat-msg -->
-
-                    <!-- Message to the right -->
-                    <div class="direct-chat-msg right">
-                      <div class='direct-chat-info clearfix'>
-                        <span class='direct-chat-name pull-right'>Sarah Bullock</span>
-                        <span class='direct-chat-timestamp pull-left'>23 Jan 2:05 pm</span>
-                      </div><!-- /.direct-chat-info -->
-                      <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image" /><!-- /.direct-chat-img -->
-                      <div class="direct-chat-text">
-                        You better believe it!
-                      </div><!-- /.direct-chat-text -->
-                    </div><!-- /.direct-chat-msg -->
-
-                    <!-- Message. Default to the left -->
-                    <div class="direct-chat-msg">
-                      <div class='direct-chat-info clearfix'>
-                        <span class='direct-chat-name pull-left'>Quoc Anh</span>
-                        <span class='direct-chat-timestamp pull-right'>23 Jan 5:37 pm</span>
-                      </div><!-- /.direct-chat-info -->
-                      <img class="direct-chat-img" src="f8a2560a-ec14-4817-847d-7f46f7bf6923.jpg" alt="message user image" /><!-- /.direct-chat-img -->
-                      <div class="direct-chat-text">
-                        Wanna join?
-                      </div><!-- /.direct-chat-text -->
-                    </div><!-- /.direct-chat-msg -->
-
-                    <!-- Message to the right -->
-                    <div class="direct-chat-msg right">
-                      <div class='direct-chat-info clearfix'>
-                        <span class='direct-chat-name pull-right'>Sarah Bullock</span>
-                        <span class='direct-chat-timestamp pull-left'>23 Jan 6:10 pm</span>
-                      </div><!-- /.direct-chat-info -->
-                      <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image" /><!-- /.direct-chat-img -->
-                      <div class="direct-chat-text">
-                        I would love to.
-                      </div><!-- /.direct-chat-text -->
-                    </div><!-- /.direct-chat-msg -->
-
-                  </div><!--/.direct-chat-messages-->
-
-
-                  <!-- Contacts are loaded here -->
-                  <div class="direct-chat-contacts">
-                    <ul class='contacts-list'>
-                      <li>
-                        <a href='#'>
-                          <img class='contacts-list-img' src='f8a2560a-ec14-4817-847d-7f46f7bf6923.jpg'/>
-                          <div class='contacts-list-info'>
-                            <span class='contacts-list-name'>
-                              Count Dracula
-                              <small class='contacts-list-date pull-right'>2/28/2015</small>
-                            </span>
-                            <span class='contacts-list-msg'>How have you been? I was...</span>
-                          </div><!-- /.contacts-list-info -->
-                        </a>
-                      </li><!-- End Contact Item -->
-                      <li>
-                        <a href='#'>
-                          <img class='contacts-list-img' src='dist/img/user7-128x128.jpg'/>
-                          <div class='contacts-list-info'>
-                            <span class='contacts-list-name'>
-                              Sarah Doe
-                              <small class='contacts-list-date pull-right'>2/23/2015</small>
-                            </span>
-                            <span class='contacts-list-msg'>I will be waiting for...</span>
-                          </div><!-- /.contacts-list-info -->
-                        </a>
-                      </li><!-- End Contact Item -->
-                      <li>
-                        <a href='#'>
-                          <img class='contacts-list-img' src='dist/img/user3-128x128.jpg'/>
-                          <div class='contacts-list-info'>
-                            <span class='contacts-list-name'>
-                              Nadia Jolie
-                              <small class='contacts-list-date pull-right'>2/20/2015</small>
-                            </span>
-                            <span class='contacts-list-msg'>I'll call you back at...</span>
-                          </div><!-- /.contacts-list-info -->
-                        </a>
-                      </li><!-- End Contact Item -->
-                      <li>
-                        <a href='#'>
-                          <img class='contacts-list-img' src='dist/img/user5-128x128.jpg'/>
-                          <div class='contacts-list-info'>
-                            <span class='contacts-list-name'>
-                              Nora S. Vans
-                              <small class='contacts-list-date pull-right'>2/10/2015</small>
-                            </span>
-                            <span class='contacts-list-msg'>Where is your new...</span>
-                          </div><!-- /.contacts-list-info -->
-                        </a>
-                      </li><!-- End Contact Item -->
-                      <li>
-                        <a href='#'>
-                          <img class='contacts-list-img' src='dist/img/user6-128x128.jpg'/>
-                          <div class='contacts-list-info'>
-                            <span class='contacts-list-name'>
-                              John K.
-                              <small class='contacts-list-date pull-right'>1/27/2015</small>
-                            </span>
-                            <span class='contacts-list-msg'>Can I take a look at...</span>
-                          </div><!-- /.contacts-list-info -->
-                        </a>
-                      </li><!-- End Contact Item -->
-                      <li>
-                        <a href='#'>
-                          <img class='contacts-list-img' src='dist/img/user8-128x128.jpg'/>
-                          <div class='contacts-list-info'>
-                            <span class='contacts-list-name'>
-                              Kenneth M.
-                              <small class='contacts-list-date pull-right'>1/4/2015</small>
-                            </span>
-                            <span class='contacts-list-msg'>Never mind I found...</span>
-                          </div><!-- /.contacts-list-info -->
-                        </a>
-                      </li><!-- End Contact Item -->
-                    </ul><!-- /.contatcts-list -->
-                  </div><!-- /.direct-chat-pane -->
-                </div><!-- /.box-body -->
-                <div class="box-footer">
-                  <form action="#" method="post">
-                    <div class="input-group">
-                      <input type="text" name="message" placeholder="Type Message ..." class="form-control"/>
-                      <span class="input-group-btn">
-                        <button type="button" class="btn btn-warning btn-flat">Send</button>
-                      </span>
-                    </div>
-                  </form>
-                </div><!-- /.box-footer-->
-              </div><!--/.direct-chat -->
-            </div><!-- /.col -->
-            <div class='col-md-4'>
-              <!-- USERS LIST -->
-              <div class="box box-danger">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Latest Members</h3>
-                  <div class="box-tools pull-right">
-                    <span class="label label-danger">8 New Members</span>
-                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div><!-- /.box-header -->
-                <div class="box-body no-padding">
-                  <ul class="users-list clearfix">
-                    <li>
-                      <img src="f8a2560a-ec14-4817-847d-7f46f7bf6923.jpg" alt="User Image"/>
-                      <a class="users-list-name" href="#">Quoc Anh</a>
-                      <span class="users-list-date">Today</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user8-128x128.jpg" alt="User Image"/>
-                      <a class="users-list-name" href="#">Norman</a>
-                      <span class="users-list-date">Yesterday</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user7-128x128.jpg" alt="User Image"/>
-                      <a class="users-list-name" href="#">Jane</a>
-                      <span class="users-list-date">12 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user6-128x128.jpg" alt="User Image"/>
-                      <a class="users-list-name" href="#">John</a>
-                      <span class="users-list-date">12 Jan</span>
-                    </li>
-                    <li>
-                      <img src="13f9d612a92b9a4cd8932e24d3b595ee.jpg" alt="User Image"/>
-                      <a class="users-list-name" href="#">Quoc Viet</a>
-                      <span class="users-list-date">13 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user5-128x128.jpg" alt="User Image"/>
-                      <a class="users-list-name" href="#">Sarah</a>
-                      <span class="users-list-date">14 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user4-128x128.jpg" alt="User Image"/>
-                      <a class="users-list-name" href="#">Nora</a>
-                      <span class="users-list-date">15 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user3-128x128.jpg" alt="User Image"/>
-                      <a class="users-list-name" href="#">Nadia</a>
-                      <span class="users-list-date">15 Jan</span>
-                    </li>
-                  </ul><!-- /.users-list -->
-                </div><!-- /.box-body -->
-                <div class="box-footer text-center">
-                  <a href="javascript::" class="uppercase">View All Users</a>
-                </div><!-- /.box-footer -->
-              </div><!--/.box -->
-            </div><!-- /.col -->
-            <div class='col-md-4'>
-              <div class="box box-default">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Browser Usage</h3>
-                  <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                  <div class="row">
-                    <div class="col-md-8">
-                      <div class="chart-responsive">
-                        <canvas id="pieChart" height="150"></canvas>
-                      </div><!-- ./chart-responsive -->
-                    </div><!-- /.col -->
-                    <div class="col-md-4">
-                      <ul class="chart-legend clearfix">
-                        <li><i class="fa fa-circle-o text-red"></i> Chrome</li>
-                        <li><i class="fa fa-circle-o text-green"></i> IE</li>
-                        <li><i class="fa fa-circle-o text-yellow"></i> FireFox</li>
-                        <li><i class="fa fa-circle-o text-aqua"></i> Safari</li>
-                        <li><i class="fa fa-circle-o text-light-blue"></i> Opera</li>
-                        <li><i class="fa fa-circle-o text-gray"></i> Navigator</li>
-                      </ul>
-                    </div><!-- /.col -->
-                  </div><!-- /.row -->
-                </div><!-- /.box-body -->
-                <div class="box-footer no-padding">
-                  <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#">United States of America <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 12%</span></a></li>
-                    <li><a href="#">India <span class="pull-right text-green"><i class="fa fa-angle-up"></i> 4%</span></a></li>
-                    <li><a href="#">China <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i> 0%</span></a></li>
-                  </ul>
-                </div><!-- /.footer -->
-              </div><!-- /.box -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-
-        </section><!-- /.content -->
+          </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
           <b>Version</b> 2.0
         </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+        <strong>NoDy Design</strong>
       </footer>
 
     </div><!-- ./wrapper -->
+    <!-- Show "Members" link only for admins -->
+    <li th:if="${urole == 'Admin'}">
+      <a href="/member.html">Members</a>
+    </li>
 
     <!-- jQuery 2.1.3 -->
     <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
