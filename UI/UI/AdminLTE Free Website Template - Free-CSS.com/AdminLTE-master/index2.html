@@ -290,31 +290,12 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
-              <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard </a></li>
-              </ul>
-            </li>
             <li>
-              <a href="pages/widgets.html">
-                <i class="fa fa-th"></i> <span>Widgets</span> <small class="label pull-right bg-green">new</small>
+              <a href="index2.html">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span> 
               </a>
             </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-pie-chart"></i>
-                <span>Charts</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-              </ul>
-            </li>
+              
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-table"></i> <span>Tables</span>
@@ -322,20 +303,10 @@
               </a>
               <ul class="treeview-menu">
                 <li>
-                  <a href="#"><i class="fa fa-circle-o"></i> Product <i class="fa fa-angle-left pull-right"></i></a>
-                  <ul class="treeview-menu">
-                    <li><a href="pages/tables/product.html"><i class="fa fa-circle-o"></i> Food</a></li>
-                    <li><a href="pages/tables/fresh-food.html"><i class="fa fa-circle-o"></i> Fresh Food</a></li>
-                    <li><a href="pages/tables/vegetable.html"><i class="fa fa-circle-o"></i> Vegetable</a></li>
-                    <li><a href="pages/tables/seafood.html"><i class="fa fa-circle-o"></i> SeaFood</a></li>
-                    <li><a href="pages/tables/fruit.html"><i class="fa fa-circle-o"></i> Fruit</a></li>
-                  </ul>
+                  <a href="pages/tables/product.html"><i class="fa fa-circle-o"></i> Product </a>
                 </li>
                 <li>
-                  <a href="#"><i class="fa fa-circle-o"></i> Area <i class="fa fa-angle-left pull-right"></i></a>
-                  <ul class="treeview-menu">
-                    <li><a href="pages/tables/WhDD.html"><i class="fa fa-circle-o"></i> Dong Da</a></li>
-                  </ul>
+                  <a href="pages/tables/area.html"><i class="fa fa-circle-o"></i> Area </a>
                   <li><a href="pages/tables/supplier.html"><i class="fa fa-circle-o"></i> Supplier</a></li>
                 </li>   
                 <li>
@@ -386,13 +357,92 @@
         </section>
 
         <!-- Main content -->
+         
         <section class="content">
           <!-- Info boxes -->
+          <div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-maroon">
+                <div class="inner">
+                  <h3>
+                    160
+                  </h3>
+                  <p>
+                    Products
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-ios-pricetag-outline"></i>
+                </div>
+                <a href="pages/tables/product.html" class="small-box-footer">
+                  More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>
+                    65
+                  </h3>
+                  <p>
+                    Area
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="pages/tables/area.html" class="small-box-footer">
+                  More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>
+                    53<sup style="font-size: 20px">%</sup>
+                  </h3>
+                  <p>
+                    Supplier
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="pages/tables/supplier.html" class="small-box-footer">
+                  More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-blue">
+                <div class="inner">
+                  <h3>
+                    230
+                  </h3>
+                  <p>
+                    Bill
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-ios-cart-outline"></i>
+                </div>
+                <a href="pages/tables/bill.html" class="small-box-footer">
+                  More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+          </div><!-- /.row -->
           <div class="row">
             <div class="col-md-12">
               <div class="box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Monthly Recap Report</h3>
+                  <h3 class="box-title">Báo cáo tháng</h3>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <div class="btn-group">
@@ -497,42 +547,53 @@
               <!-- MAP & BOX PANE -->
               <div class="box box-success">
                 <div class="box-header with-border">
-                  <h3 class=" box-title">Supplier</h3>
-                  <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
+                    <h3 class="box-title">Area</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
-                  <div class="row">
-                    <div class="col-md-9 col-sm-8">
-                      <div class="pad">
-                        <!-- Map will be created here -->
-                        <div id="world-map-markers" style="height: 325px;"></div>
-                      </div>
-                    </div><!-- /.col -->
-                    <div class="col-md-3 col-sm-4">
-                      <div class="pad box-pane-right bg-green" style="min-height: 280px">
-                        <div class="description-block margin-bottom">
-                          <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
-                          <h5 class="description-header">300</h5>
-                          <span class="description-text">Supplier</span>
-                        </div><!-- /.description-block -->
-                        <div class="description-block margin-bottom">
-                          <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
-                          <h5 class="description-header">30%</h5>
-                          <span class="description-text">Referrals</span>
-                        </div><!-- /.description-block -->
-                        <div class="description-block">
-                          <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
-                          <h5 class="description-header">70%</h5>
-                          <span class="description-text">Organic</span>
-                        </div><!-- /.description-block -->
-                      </div>
-                    </div><!-- /.col -->
-                  </div><!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="container" style="width: 100%; height: 400px; border: none;">
+                                <!-- Raphaël JS Map Here -->
+                            </div>
+                            <h3 id="region-name"></h3>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
                 </div><!-- /.box-body -->
-              </div><!-- /.box -->
+            </div><!-- /.box -->
+            
+            <!-- Include required scripts -->
+            <head>
+                <meta charset="UTF-8">
+                <title>Hanoi Interactive Map</title>
+                <style type="text/css">
+                    .heaven-on-earth {
+                        fill: yellow;
+                    }
+                </style>
+                <script src="svg-pan-zoom.min.js"></script>
+                <script src="raphael-min.js"></script>
+                <script src="map.js"></script>
+            </head>
+            <script>
+                window.onload = function () {
+                    svgPanZoom('svg', {
+                        zoomEnabled: true,
+                        controlIconsEnabled: true,
+                        dblClickZoomEnabled: true,
+                        mouseWheelZoomEnabled: true,
+                        preventMouseEventsDefault: true,
+                        zoomScaleSensitivity: 0.1,
+                        contain: true,
+                        center: true,
+                        minZoom: 1
+                    }).zoomAtPointBy(3.8, { x: 383, y: 183 });
+                };
+            </script>
+            
 
             </div><!-- /.col -->
 
