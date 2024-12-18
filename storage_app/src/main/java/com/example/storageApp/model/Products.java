@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jdk.jfr.Category;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,4 +34,8 @@ public class Products {
     @ManyToOne
     @JoinColumn(name = "cid")
     private Categories  category;
+
+//    @OneToMany(mappedBy = "products")
+//    private List<Transactions> transactions;
+
 }

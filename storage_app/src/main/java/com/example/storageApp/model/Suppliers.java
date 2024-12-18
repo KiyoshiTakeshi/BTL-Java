@@ -2,6 +2,8 @@ package com.example.storageApp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -30,4 +32,7 @@ public class Suppliers {
 
     @Column
     private Integer sstatus;
+
+//    @OneToMany(mappedBy = "suppliers")
+//    private List<Transactions> transactions;
 }
