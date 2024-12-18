@@ -417,7 +417,6 @@
                   <option value="4">Hải sản</option>
                   <option value="5">Trái cây</option>
                 </select>
-                <button type="button" class="btn btn-primary" id="addNew">Add new</button>
               </div><!-- /.box-header -->
 
               <!-- Add Product Popup Modal -->
@@ -567,36 +566,6 @@
                       });
                     });
                   }
-              
-                  // Add new product
-                  addNewButton.addEventListener('click', function () {
-                    document.getElementById('addForm').reset();
-                    $('#addModal').modal('show');
-                  });
-              
-                  saveNewProductButton.addEventListener('click', function () {
-                    const newProduct = {
-                      pname: document.getElementById('addName').value,
-                      pdescribe: document.getElementById('addDescription').value,
-                      pprice: document.getElementById('addPrice').value,
-                      pquantity: document.getElementById('addQuantity').value,
-                    };
-                    fetch('http://localhost:8080/api/products', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(newProduct),
-                    })
-                      .then(response => {
-                        if (response.ok) {
-                          alert('Product added successfully');
-                          $('#addModal').modal('hide');
-                          fetchProductsByCategory(categorySelect.value);
-                        } else {
-                          alert('Failed to add product');
-                        }
-                      })
-                      .catch(error => console.error('Error adding product:', error));
-                  });
               
                   // Save edited product
                   saveEditedProductButton.addEventListener('click', function () {
