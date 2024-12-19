@@ -6,9 +6,11 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ProductDTO {
-    private Integer pId;
-    private String pName;
-    private String pDescribe;
-    private Double pPrice;
-    private Integer pQuantity;
+    private Integer pid;
+    private String pname;
+    private String pdescribe;
+    private Double pprice;
+    private Integer pquantity;
+    private Integer pstatus;
+    private Integer cid;
 }

@@ -33,6 +33,6 @@ public class Suppliers {
     @Column
     private Integer sstatus;
 
-//    @OneToMany(mappedBy = "suppliers")
-//    private List<Transactions> transactions;
+    @OneToMany(mappedBy = "suppliers")
+    private List<Transactions> transactions;
 }

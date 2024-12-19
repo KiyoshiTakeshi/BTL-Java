@@ -509,6 +509,7 @@
                     fetch(`http://localhost:8080/api/products/category/${categoryId}`)
                       .then(response => response.json())
                       .then(data => {
+                        console.log("Dữ liệu từ API:", data); // Kiểm tra dữ liệu trả về
                         const filteredProducts = data.filter(product => product.pstatus === 1);
                         productsList.innerHTML = '';
                         filteredProducts.forEach(product => {

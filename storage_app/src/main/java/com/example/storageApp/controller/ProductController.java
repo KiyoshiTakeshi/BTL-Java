@@ -18,8 +18,8 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/category/{cid}")
-    public ResponseEntity<List<Products>> getProductsByCategory(@PathVariable Integer cid) {
-        List<Products> products = productService.getProductsByCategory(cid);
+    public ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable Integer cid) {
+        List<ProductDTO> products = productService.getProductsByCategory(cid);
         return ResponseEntity.ok(products);
     }
 

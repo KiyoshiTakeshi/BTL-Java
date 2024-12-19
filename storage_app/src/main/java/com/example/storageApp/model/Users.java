@@ -22,7 +22,7 @@ public class Users {
     private String upassword;
 
     @Column(nullable = false)
-    private String ufullName;
+    private String ufullname;
 
     @Column(nullable = false)
     private String uphone;
@@ -33,6 +33,6 @@ public class Users {
     @Column(nullable = false)
     private Integer ustatus;
 
-//    @OneToMany(mappedBy = "users")
-//    private List<Transactions> transactions;
+    @OneToMany(mappedBy = "users")
+    private List<Transactions> transactions;
 }

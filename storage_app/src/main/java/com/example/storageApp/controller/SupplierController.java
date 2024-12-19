@@ -17,14 +17,14 @@ public class SupplierController {
     private SupplierService supplierService;
 
     @GetMapping("/{stype}")
-    public ResponseEntity<List<Suppliers>> getSuppliersByType(@PathVariable String stype) {
-        List<Suppliers> suppliers = supplierService.getSuppliersByType(stype);
+    public ResponseEntity<List<SupplierDTO>> getSuppliersByType(@PathVariable String stype) {
+        List<SupplierDTO> suppliers = supplierService.getSuppliersByType(stype);
         return ResponseEntity.ok(suppliers);
     }
 
     @PostMapping
     public ResponseEntity<String> createSupplier(@RequestBody SupplierDTO supplierDTO) {
-        if (supplierDTO.getSName() == null || supplierDTO.getSEmail() == null) {
+        if (supplierDTO.getSname() == null || supplierDTO.getSemail() == null) {
             return ResponseEntity.badRequest().body("Name and Email are required");
         }
 

@@ -22,10 +22,10 @@ public class Transactions {
     private Integer tquantity;
 
     @Column(nullable = false)
-    private Date tdate;
+    private String tnote;
 
     @Column(nullable = false)
-    private String tnote;
+    private Date tdate;
 
     @Column(nullable = false)
     private Integer tstatus;

@@ -35,7 +35,7 @@ public class Products {
     @JoinColumn(name = "cid")
     private Categories  category;
 
-//    @OneToMany(mappedBy = "products")
-//    private List<Transactions> transactions;
+    @OneToMany(mappedBy = "products")
+    private List<Transactions> transactions;
 
 }

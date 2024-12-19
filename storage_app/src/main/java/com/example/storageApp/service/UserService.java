@@ -17,7 +17,7 @@ public class UserService {
         users.setUid(userDTO.getUId());
         users.setUname(userDTO.getUName());
         users.setUpassword(userDTO.getUPassword());
-        users.setUfullName(userDTO.getUFullName());
+        users.setUfullname(userDTO.getUFullName());
         users.setUrole("NV");
         users.setUstatus(1);
         userRepository.save(users);
