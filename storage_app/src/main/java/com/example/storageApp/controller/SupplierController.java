@@ -1,6 +1,8 @@
 package com.example.storageApp.controller;
 
 import com.example.storageApp.dto.SupplierDTO;
+import com.example.storageApp.dto.SupplierNameDTO;
+import com.example.storageApp.dto.UserNameDTO;
 import com.example.storageApp.model.Suppliers;
 import com.example.storageApp.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/suppliers")
+@CrossOrigin(origins = "http://127.0.0.1:8082")
 public class SupplierController {
 
     @Autowired
@@ -20,6 +23,11 @@ public class SupplierController {
     public ResponseEntity<List<SupplierDTO>> getSuppliersByType(@PathVariable String stype) {
         List<SupplierDTO> suppliers = supplierService.getSuppliersByType(stype);
         return ResponseEntity.ok(suppliers);
+    }
+
+    @GetMapping("/names/{stype}")
+    public List<SupplierNameDTO> getAllSupplierNames(@PathVariable String stype) {
+        return supplierService.getAllSupplierNamesByType(stype);
     }
 
     @PostMapping

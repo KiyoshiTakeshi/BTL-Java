@@ -420,12 +420,383 @@
                 <button type="button" class="btn btn-primary" id="addNew">Add new</button>
               </div><!-- /.box-header -->
 
+              <!-- Add Transition Popup Modal -->
+              <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="addNewModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="addNewModalLabel">Add New Transaction</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div id="productRows">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Product Name</label>
+                          <label class="col-sm-3 col-form-label">Price</label>
+                          <label class="col-sm-3 col-form-label">Quantity</label>
+                        </div>
+                        <div class="form-group row product-row">
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control product-name" placeholder="Product Name">
+                          </div>
+                          <div class="col-sm-3">
+                            <input type="number" class="form-control product-price" placeholder="Price" min="0">
+                          </div>
+                          <div class="col-sm-3">
+                            <input type="number" class="form-control product-quantity" placeholder="Quantity" min="0">
+                          </div>
+                          <div class="col-sm-3">
+                            <button type="button" class="btn btn-success btn-add-row">+</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Total</label>
+                        <div class="d-flex align-items-center">
+                          <input type="number" id="addTotal" class="form-control" placeholder="Total" readonly
+                            style="flex: 0 0 50%;">
+                          <button type="button" id="updateTotalBtn" class="btn btn-info ml-2"
+                            style="white-space: nowrap;">Update Total</button>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>User Name</label>
+                        <select class="form-control" id="addUserName"></select>
+                      </div>
+                      <div class="form-group">
+                        <label>Supplier Name</label>
+                        <select class="form-control" id="supplierSelect">
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="addDate" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label>Transaction Type</label>
+                        <select id="addType" class="form-control">
+                          <option value="Nhà cung cấp">Nhập</option>
+                          <option value="Đại lý phân phối">Xuất</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="addNote">Note</label>
+                        <textarea class="form-control" id="addNote" placeholder="Enter note" required></textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" id="saveAddNew" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <script>
                 document.addEventListener("DOMContentLoaded", function () {
                   const transactionsList = document.getElementById('transactions-list');
                   const transactionSelect = document.getElementById('transactionSelect');
 
-                  // Fetch transactions by type
+                  const addTotal = document.getElementById("addTotal");
+                  const addUserName = document.getElementById("addUserName");
+                  const addType = document.getElementById("addType");
+                  const supplierSelect = document.getElementById("supplierSelect");
+                  const addDate = document.getElementById("addDate");
+                  const saveAddNew = document.getElementById("saveAddNew");
+
+                  const productRowsContainer = document.getElementById("productRows");
+                  const maxProducts = 5;
+                  let productCount = 1;
+
+                  document.getElementById('addNew').addEventListener('click', function () {
+                    $('#addNewModal').modal('show');
+                  });
+
+                  // Đặt ngày mặc định là ngày hiện tại
+                  const today = new Date().toISOString().split("T")[0];
+                  addDate.value = today;
+
+                  // Hàm thêm dòng sản phẩm mới
+                  function addProductRow() {
+                    if (productCount >= maxProducts) {
+                      alert("You can only add up to 5 products.");
+                      return;
+                    }
+
+                    const productRow = document.createElement("div");
+                    productRow.className = "form-group row product-row";
+
+                    productRow.innerHTML = `
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control product-name" placeholder="Product Name">
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="number" class="form-control product-price" placeholder="Price" min="0">
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="number" class="form-control product-quantity" placeholder="Quantity" min="0">
+                      </div>
+                      <div class="col-sm-3">
+                          <button type="button" class="btn btn-danger btn-remove-row">-</button>
+                      </div>
+                    `;
+
+                    productRowsContainer.appendChild(productRow);
+                    productCount++;
+
+                    // Tính tổng giá trị khi nhập giá hoặc số lượng
+                    productRow.querySelector(".product-price").addEventListener("input", calculateTotal);
+                    productRow.querySelector(".product-quantity").addEventListener("input", calculateTotal);
+
+                    // Xử lý nút xóa
+                    productRow.querySelector(".btn-remove-row").addEventListener("click", function () {
+                      productRowsContainer.removeChild(productRow);
+                      productCount--;
+                      calculateTotal();
+                    });
+                  }
+
+                  // Hàm tính tổng tiền
+                  function calculateTotal() {
+                    let total = 0;
+                    const rows = document.querySelectorAll(".product-row");
+
+                    rows.forEach(row => {
+                      const price = parseFloat(row.querySelector(".product-price").value) || 0;
+                      const quantity = parseFloat(row.querySelector(".product-quantity").value) || 0;
+                      total += price * quantity;
+                    });
+
+                    // Hiển thị tổng tiền
+                    document.getElementById("addTotal").value = total.toFixed(2);
+                  }
+                  document.getElementById("updateTotalBtn").addEventListener("click", calculateTotal);
+
+                  // Thêm sự kiện nút thêm sản phẩm
+                  document.querySelector(".btn-add-row").addEventListener("click", addProductRow);
+
+                  // Fetch danh sách user
+                  fetch("http://localhost:8080/api/users/names")
+                    .then(response => response.json())
+                    .then(users => {
+                      addUserName.innerHTML = users.map(user => `<option value="${user.uid}">${user.uname}</option>`).join("");
+                    })
+                    .catch(error => console.error("Error fetching users:", error));
+
+                  // Fetch suppliers based on transaction type
+                  function fetchSuppliersByType(stype) {
+                    const url = `http://localhost:8080/api/suppliers/names/${stype}`;
+                    fetch(url)
+                      .then(response => response.json())
+                      .then(suppliers => {
+                        supplierSelect.innerHTML = suppliers.map(supplier => `<option value="${supplier.sid}">${supplier.sname}</option>`).join("");
+                      })
+                      .catch(error => console.error("Error fetching suppliers:", error));
+                  }
+
+                  // Gọi hàm để fetch dữ liệu khi trang load
+                  fetchSuppliersByType(addType.value);
+
+                  // Lắng nghe sự kiện thay đổi loại giao dịch
+                  addType.addEventListener('change', function () {
+                    fetchSuppliersByType(addType.value);
+                  });
+
+                  // Xử lý nút lưu
+                  saveAddNew.addEventListener("click", function () {
+                    const products = [];
+
+                    // Kiểm tra các sản phẩm và thêm vào mảng products
+                    document.querySelectorAll(".product-row").forEach(row => {
+                      const productName = row.querySelector(".product-name").value;
+                      const productPrice = parseFloat(row.querySelector(".product-price").value) || 0;
+                      const productQuantity = parseInt(row.querySelector(".product-quantity").value, 10) || 0;
+
+                      if (productName && productQuantity > 0) {
+                        products.push({ name: productName, price: productPrice, quantity: productQuantity });
+                      }
+                    });
+
+                    // Kiểm tra nếu không có sản phẩm nào được thêm
+                    if (products.length === 0) {
+                      alert("Vui lòng thêm sản phẩm vào giao dịch.");
+                      return;
+                    }
+
+                    const transactionData = {
+                      userName: addUserName.value,
+                      supplierName: supplierSelect.value,
+                      date: addDate.value,
+                      type: document.getElementById("addType").value === 'Nhà cung cấp' ? 'Nhập' : 'Xuất',
+                      total: parseFloat(addTotal.value) || 0,
+                      note: document.getElementById("addNote").value,
+                      products: products
+                    };
+
+                    // Kiểm tra loại giao dịch và xử lý
+                    if (transactionData.type === 'Nhập') {
+                      handleImportTransaction(transactionData);
+                    } else if (transactionData.type === 'Xuất') {
+                      handleExportTransaction(transactionData);
+                    } else {
+                      alert("Loại giao dịch không hợp lệ.");
+                    }
+                  });
+
+                  // Xử lý giao dịch nhập
+                  function handleImportTransaction(transactionData) {
+                    transactionData.products.forEach(product => {
+                      fetch("http://localhost:8080/api/products", {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" }
+                      })
+                        .then(response => response.json())
+                        .then(products => {
+                          let existingProduct = products.find(p => p.pname === product.name);
+
+                          if (existingProduct) {
+                            fetch(`http://localhost:8080/api/products/${existingProduct.id}`, {
+                              method: "PUT",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({
+                                pprice: product.price,
+                                pquantity: existingProduct.pquantity + product.quantity
+                              })
+                            })
+                              .then(() => {
+                                saveTransaction(transactionData, existingProduct.id);
+                              })
+                              .catch(error => console.error("Error updating product:", error));
+                          } else {
+                            fetch("http://localhost:8080/api/products", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({
+                                pname: product.name,
+                                pprice: product.price,
+                                pquantity: product.quantity
+                              })
+                            })
+                              .then(response => response.json())
+                              .then(newProduct => {
+                                saveTransaction(transactionData, newProduct.id);
+                              })
+                              .catch(error => console.error("Error adding product:", error));
+                          }
+                        })
+                        .catch(error => console.error("Error fetching products:", error));
+                    });
+                  }
+
+                  // Xử lý giao dịch xuất
+                  async function handleImportTransaction(transactionData) {
+                    try {
+                      const response = await fetch("http://localhost:8080/api/products", {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" }
+                      });
+
+                      const products = await response.json();
+                      for (const product of transactionData.products) {
+                        const existingProduct = products.find(p => p.pname === product.name);
+
+                        if (existingProduct) {
+                          // Update sản phẩm
+                          await fetch(`http://localhost:8080/api/products/${existingProduct.id}`, {
+                            method: "PUT",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                              pprice: product.price,
+                              pquantity: existingProduct.pquantity + product.quantity
+                            })
+                          });
+                          await saveTransaction(transactionData, existingProduct.id);
+                        } else {
+                          // Thêm sản phẩm mới
+                          const newProductResponse = await fetch("http://localhost:8080/api/products", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                              pname: product.name,
+                              pprice: product.price,
+                              pquantity: product.quantity
+                            })
+                          });
+
+                          const newProduct = await newProductResponse.json();
+                          await saveTransaction(transactionData, newProduct.id);
+                        }
+                      }
+                    } catch (error) {
+                      console.error("Error handling import transaction:", error);
+                      alert("Có lỗi xảy ra khi xử lý giao dịch nhập.");
+                    }
+                  }
+
+
+                  // Lưu giao dịch vào bảng transactions
+                  async function saveTransaction(transactionData, productId) {
+                    const userName = addUserName.value;
+                    const supplierName = supplierSelect.value;
+
+                    try {
+                      const [usersResponse, suppliersResponse] = await Promise.all([
+                        fetch("http://localhost:8080/api/users", { method: "GET", headers: { "Content-Type": "application/json" } }),
+                        fetch("http://localhost:8080/api/suppliers", { method: "GET", headers: { "Content-Type": "application/json" } })
+                      ]);
+
+                      const users = await usersResponse.json();
+                      const suppliers = await suppliersResponse.json();
+
+                      const user = users.find(u => u.uname === userName);
+                      const supplier = suppliers.find(s => s.sname === supplierName);
+
+                      const userId = user ? user.uid : null;
+                      const supplierId = supplier ? supplier.sid : null;
+
+                      if (!userId || !supplierId) {
+                        alert("Không tìm thấy người dùng hoặc nhà cung cấp.");
+                        return;
+                      }
+
+                      for (const product of transactionData.products) {
+                        const ttotal = product.price * product.quantity;
+
+                        const transactionPayload = {
+                          pid: productId,
+                          uid: userId,
+                          sid: supplierId,
+                          ttype: transactionData.type,
+                          tquantity: product.quantity,
+                          ttotal: ttotal,
+                          tdate: transactionData.date,
+                          tnote: transactionData.note,
+                          tstatus: 1
+                        };
+
+                        const response = await fetch("http://localhost:8080/api/transactions", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify(transactionPayload)
+                        });
+
+                        if (response.ok) {
+                          alert("Giao dịch đã được lưu thành công.");
+                          location.reload();
+                        } else {
+                          alert("Thêm giao dịch thất bại.");
+                        }
+                      }
+                    } catch (error) {
+                      console.error("Error saving transaction:", error);
+                      alert("Có lỗi xảy ra khi lưu giao dịch.");
+                    }
+                  }
+
+                  // Fetch transactions list by type
                   function fetchTransactionsByType(ttype) {
                     fetch(`http://localhost:8080/api/transactions/${ttype}`)
                       .then(response => {
@@ -450,6 +821,7 @@
                             <td>${transaction.sname}</td>
                             <td>${transaction.ttype}</td>
                             <td>${transaction.tquantity}</td>
+                            <td>${transaction.ttotal}</td>
                             <td>${transaction.tnote}</td>
                             <td>${formattedDate}</td>
                             <td>
@@ -514,6 +886,7 @@
                       <th>Supplier Name</th>
                       <th>Type</th>
                       <th>Quantity</th>
+                      <th>Total (VND)</th>
                       <th>Note</th>
                       <th>Date</th>
                       <th>Actions</th>

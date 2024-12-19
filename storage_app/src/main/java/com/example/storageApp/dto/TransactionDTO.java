@@ -8,7 +8,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class TransactionDTO {
     private Integer tid;
     private String pname;
@@ -16,6 +15,7 @@ public class TransactionDTO {
     private String sname;
     private String ttype;
     private Integer tquantity;
+    private Integer ttotal;
     private String tnote;
     private Date tdate;
     private Integer tstatus;

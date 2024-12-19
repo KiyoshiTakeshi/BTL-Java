@@ -15,6 +15,21 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    public List<ProductDTO> getAllProducts() {
+        List<Products> products = productRepository.findAll();
+        return products.stream()
+                .map(product -> new ProductDTO(
+                        product.getPid(),
+                        product.getPname(),
+                        product.getPdescribe(),
+                        product.getPprice(),
+                        product.getPquantity(),
+                        product.getPstatus(),
+                        product.getCategory() != null ? product.getCategory().getCid() : null))
+                .collect(Collectors.toList());
+    }
+
+
     public List<ProductDTO> getProductsByCategory(Integer cid) {
         return productRepository.findByCategoryCid(cid);
     }
@@ -53,4 +68,6 @@ public class ProductService {
         // Lưu lại thay đổi trong cơ sở dữ liệu
         productRepository.save(existingProduct);
     }
+
+
 }

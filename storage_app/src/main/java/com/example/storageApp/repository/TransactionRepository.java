@@ -18,6 +18,7 @@ public interface TransactionRepository extends JpaRepository<Transactions, Integ
             "t.suppliers.sname, " +
             "t.ttype, " +
             "t.tquantity, " +
+            "t.ttotal, " +
             "t.tnote, " +
             "t.tdate, " +
             "t.tstatus) " +

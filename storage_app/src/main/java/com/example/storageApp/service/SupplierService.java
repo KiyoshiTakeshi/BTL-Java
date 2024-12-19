@@ -1,6 +1,7 @@
 package com.example.storageApp.service;
 
 import com.example.storageApp.dto.SupplierDTO;
+import com.example.storageApp.dto.SupplierNameDTO;
 import com.example.storageApp.model.Suppliers;
 import com.example.storageApp.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,10 @@ public class SupplierService {
 
     public List<SupplierDTO> getSuppliersByType(String stype) {
         return supplierRepository.findSuppliersByType(stype);
+    }
+
+    public List<SupplierNameDTO> getAllSupplierNamesByType(String stype) {
+        return supplierRepository.getAllSupplierNamesByType(stype);
     }
 
     public void addSupplier(SupplierDTO supplierDTO) {

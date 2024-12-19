@@ -26,6 +26,17 @@ public class TransactionController {
         return ResponseEntity.ok(transactions);
     }
 
+    @PostMapping
+    public ResponseEntity<Transactions> createTransaction(@RequestBody Transactions transaction) {
+        try {
+            Transactions savedTransaction = transactionsService.createTransaction(transaction);
+            return ResponseEntity.ok(savedTransaction);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTransaction(@PathVariable Integer id) {
         try {

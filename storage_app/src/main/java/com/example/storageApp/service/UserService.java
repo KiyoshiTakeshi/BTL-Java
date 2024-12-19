@@ -1,10 +1,13 @@
 package com.example.storageApp.service;
 
 import com.example.storageApp.dto.UserDTO;
+import com.example.storageApp.dto.UserNameDTO;
 import com.example.storageApp.model.Users;
 import com.example.storageApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -29,4 +32,8 @@ public class UserService {
 
     public boolean validatePassword(String rawPassword, String storedPassword) {
         return rawPassword.equals(storedPassword);    }
+
+    public List<UserNameDTO> getAllUserNames() {
+        return userRepository.getAllUserNames();
+    }
 }

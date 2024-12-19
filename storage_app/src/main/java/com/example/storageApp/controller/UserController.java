@@ -1,6 +1,7 @@
 package com.example.storageApp.controller;
 
 import com.example.storageApp.dto.UserDTO;
+import com.example.storageApp.dto.UserNameDTO;
 import com.example.storageApp.model.Users;
 import com.example.storageApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -18,6 +20,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/names")
+    public List<UserNameDTO> getAllUserNames() {
+        return userService.getAllUserNames();
+    }
 
     // Đăng ký người dùng mới
     @PostMapping
