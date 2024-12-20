@@ -3,14 +3,11 @@ package com.example.storageApp.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import javax.management.monitor.StringMonitor;
+
 @Data
 @AllArgsConstructor
-public class SupplierDTO {
-    private Integer sid;
+public class SupplierNameDTO {
     private String sname;
-    private String semail;
-    private String sphone;
-    private String saddress;
     private String stype;
-    private Integer sstatus;
 }

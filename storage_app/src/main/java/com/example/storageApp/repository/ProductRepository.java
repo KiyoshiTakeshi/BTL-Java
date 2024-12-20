@@ -11,9 +11,11 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Products, Integer> {
-    List<Products> findByCategoryCid(Integer cid);
+    @Query("SELECT new com.example.storageApp.dto.ProductDTO(p.pid, p.pname, p.pdescribe, p.pprice, p.pquantity, p.pstatus, p.category.cid) " +
+            "FROM Products p WHERE p.category.cid = :cid AND p.pstatus = 1")
+    List<ProductDTO> findByCategoryCid(@Param("cid") Integer cid);
+
     @Modifying
     @Query("UPDATE Products p SET p.pstatus = 0 WHERE p.pid = :id")
     void softDeleteById(@Param("id") Integer id);
-
 }

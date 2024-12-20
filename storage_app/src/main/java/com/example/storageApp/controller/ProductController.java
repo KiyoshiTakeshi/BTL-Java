@@ -13,13 +13,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
+@CrossOrigin(origins = "http://127.0.0.1:8082")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @GetMapping
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        List<ProductDTO> products = productService.getAllProducts(); // Giả sử productService có phương thức này
+        return ResponseEntity.ok(products);
+    }
+
     @GetMapping("/category/{cid}")
-    public ResponseEntity<List<Products>> getProductsByCategory(@PathVariable Integer cid) {
-        List<Products> products = productService.getProductsByCategory(cid);
+    public ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable Integer cid) {
+        List<ProductDTO> products = productService.getProductsByCategory(cid);
         return ResponseEntity.ok(products);
     }
 

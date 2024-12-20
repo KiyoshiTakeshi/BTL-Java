@@ -3,6 +3,8 @@ package com.example.storageApp.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,21 +16,23 @@ public class Users {
     private Integer uid;
 
     @Column(nullable = false)
-    private String uName;
+    private String uname;
 
     @Column(nullable = false)
-    private String uPassword;
+    private String upassword;
 
     @Column(nullable = false)
-    private String uFullName;
+    private String ufullname;
 
     @Column(nullable = false)
-    private String uPhone;
+    private String uphone;
 
     @Column(nullable = false)
-    private String uRole;
+    private String urole;
 
     @Column(nullable = false)
-    private String uStatus;
+    private Integer ustatus;
 
+    @OneToMany(mappedBy = "users")
+    private List<Transactions> transactions;
 }

@@ -254,14 +254,65 @@
                   </p>
                 </li>
                 <!-- Menu Footer-->
-                <li class="user-footer">
-                  <div class="pull-left">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                  </div>
-                  <div class="pull-right">
-                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                  </div>
-                </li>
+                 <li class="user-footer">
+                    <!-- Nút Profile -->
+                    <div class="pull-left">
+                      <button class="btn btn-default btn-flat" data-toggle="modal" data-target="#profileModal">Profile</button>
+                    </div>
+                    
+                    <!-- Popup Modal -->
+                    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="profileModalLabel">Profile</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <!-- Modal Body -->
+                          <div class="modal-body">
+                            <form role="form">
+                              <!-- Text Input -->
+                              <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" placeholder="Name" disabled>
+                              </div>
+                              <div class="form-group">
+                                <label>Identity Card</label>
+                                <input type="text" class="form-control" placeholder="Identity Card" disabled>
+                              </div>
+                              <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" class="form-control" placeholder="Phone">
+                              </div>
+                              <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" class="form-control" placeholder="Address">
+                              </div>
+                              <div class="form-group">
+                                <label>User Name</label>
+                                <input type="text" class="form-control" placeholder="User Name" disabled>
+                              </div>
+                              <div class="form-group">
+                                <label>Password</label>
+                                <input type="text" class="form-control" placeholder="Password">
+                              </div>
+                            </form>
+                          </div>
+                          <!-- Modal Footer -->
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="editProfile">Edit</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <a href="pages/examples/login.html" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
               </ul>
             </li>
           </ul>
@@ -309,15 +360,11 @@
             </a>
             <ul class="treeview-menu">
               <li>
-                  <a href="product.html"><i class="fa fa-circle-o"></i> Product </a>
-                </li>
-              <li>
+                <a href="product.html"><i class="fa fa-circle-o"></i> Product </a>
                 <a href="area.html"><i class="fa fa-circle-o"></i> Area </a>
-              <li><a href="supplier.html"><i class="fa fa-circle-o"></i> Supplier</a></li>
-          </li>
-          <li>
-          <li><a href="bill.html"><i class="fa fa-circle-o"></i> Bill</a></li>
-          </li>
+                <a href="supplier.html"><i class="fa fa-circle-o"></i> Supplier</a>
+                <a href="bill.html"><i class="fa fa-circle-o"></i> Bill</a>
+              </li>
         </ul>
         </li>
         <li>
@@ -332,19 +379,12 @@
             <small class="label pull-right bg-yellow">12</small>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-folder"></i> <span>Examples</span>
-            <i class="fa fa-angle-left pull-right"></i>
+        <li>
+          <a href="../member.html">
+            <i class="fa fa-user"></i> <span>Member</span> 
           </a>
-          <ul class="treeview-menu">
-            <li><a href="../examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-            <li><a href="../examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-            <li><a href="../examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-            <li><a href="../examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-            <li><a href="../examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-          </ul>
         </li>
+         
         </ul>
       </section>
       <!-- /.sidebar -->
@@ -377,7 +417,6 @@
                   <option value="4">Hải sản</option>
                   <option value="5">Trái cây</option>
                 </select>
-                <button type="button" class="btn btn-primary" id="addNew">Add new</button>
               </div><!-- /.box-header -->
 
               <!-- Add Product Popup Modal -->
@@ -470,6 +509,7 @@
                     fetch(`http://localhost:8080/api/products/category/${categoryId}`)
                       .then(response => response.json())
                       .then(data => {
+                        console.log("Dữ liệu từ API:", data); // Kiểm tra dữ liệu trả về
                         const filteredProducts = data.filter(product => product.pstatus === 1);
                         productsList.innerHTML = '';
                         filteredProducts.forEach(product => {
@@ -527,36 +567,6 @@
                       });
                     });
                   }
-              
-                  // Add new product
-                  addNewButton.addEventListener('click', function () {
-                    document.getElementById('addForm').reset();
-                    $('#addModal').modal('show');
-                  });
-              
-                  saveNewProductButton.addEventListener('click', function () {
-                    const newProduct = {
-                      pname: document.getElementById('addName').value,
-                      pdescribe: document.getElementById('addDescription').value,
-                      pprice: document.getElementById('addPrice').value,
-                      pquantity: document.getElementById('addQuantity').value,
-                    };
-                    fetch('http://localhost:8080/api/products', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(newProduct),
-                    })
-                      .then(response => {
-                        if (response.ok) {
-                          alert('Product added successfully');
-                          $('#addModal').modal('hide');
-                          fetchProductsByCategory(categorySelect.value);
-                        } else {
-                          alert('Failed to add product');
-                        }
-                      })
-                      .catch(error => console.error('Error adding product:', error));
-                  });
               
                   // Save edited product
                   saveEditedProductButton.addEventListener('click', function () {
