@@ -422,46 +422,37 @@
                   const suppliersList = document.getElementById('suppliers-list');
                   const fetchSuppliersButton = document.getElementById('fetchSuppliers');
 
-                  // AI logic to parse saddress
-                  function parseAddress(saddress) {
-                    const addressRegex = /(Thành phố|TP)\s?([^,]+),\s?(Quận|Q)\s?([^,]+),\s?([^,]+)/i;
-                    const match = saddress.match(addressRegex);
-                    if (match) {
-                      return {
-                        city: match[2],
-                        district: match[4],
-                        facility: saddress,
-                      };
-                    }
-                    return { city: "N/A", district: "N/A", facility: saddress };
-                  }
-
-                  // Fetch suppliers and process data
+                  // Fetch suppliers and process data (Lấy danh sách nhà cung cấp và xử lý)
                   function fetchSuppliers() {
-                    fetch("http://localhost:8080/api/suppliers")
+                    fetch("http://localhost:8080/api/suppliers/address")
                       .then(response => response.json())
                       .then(data => {
-                        suppliersList.innerHTML = '';
+                        console.log("Dữ liệu từ API:", data); // Kiểm tra dữ liệu trả về
+                        suppliersList.innerHTML = ''; // Làm mới danh sách nhà cung cấp
                         data.forEach(supplier => {
-                          const parsedAddress = parseAddress(supplier.saddress);
-                          const row = document.createElement('tr');
+                          // Dữ liệu đã được phân tích địa chỉ từ backend, không cần gọi hàm parseAddress nữa
+                          const row = document.createElement('tr'); // Tạo một dòng mới cho mỗi nhà cung cấp
                           row.innerHTML = `
-                      <td>${supplier.sid}</td>
-                      <td>${supplier.sname}</td>
-                      <td>${supplier.saddress}</td>
-                      <td>${parsedAddress.city}</td>
-                      <td>${parsedAddress.district}</td>
-                    `;
-                          suppliersList.appendChild(row);
+                            <td>${supplier.sid}</td>
+                            <td>${supplier.sname}</td>
+                            <td>${supplier.saddress}</td>
+                            <td>${supplier.scity}</td>  <!-- Thay đổi từ parsedAddress.city -->
+                            <td>${supplier.sdistrict}</td> <!-- Thay đổi từ parsedAddress.district -->
+                          `;
+                          suppliersList.appendChild(row); // Thêm dòng vào bảng
                         });
                       })
-                      .catch(error => console.error('Error fetching suppliers:', error));
+                      .catch(error => console.error('Error fetching suppliers:', error)); // Xử lý lỗi
                   }
 
-                  // Attach event listener
+                  // Attach event listener (Gắn sự kiện khi nhấn nút)
                   fetchSuppliersButton.addEventListener('click', fetchSuppliers);
+
+                  // Optionally, automatically fetch suppliers on page load
+                  fetchSuppliers();
                 });
               </script>
+
 
               <div class="box-body">
                 <table id="example1" class="table table-bordered table-striped">

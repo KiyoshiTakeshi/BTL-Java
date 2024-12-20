@@ -1,5 +1,6 @@
 package com.example.storageApp.controller;
 
+import com.example.storageApp.dto.AreaDTO;
 import com.example.storageApp.dto.SupplierDTO;
 import com.example.storageApp.dto.SupplierNameDTO;
 import com.example.storageApp.dto.UserNameDTO;
@@ -28,6 +29,11 @@ public class SupplierController {
     @GetMapping("/names/{stype}")
     public List<SupplierNameDTO> getAllSupplierNames(@PathVariable String stype) {
         return supplierService.getAllSupplierNamesByType(stype);
+    }
+
+    @GetMapping("/address")
+    public List<AreaDTO> getAllSupplierAddress(){
+        return supplierService.getAllSupplierAddress();
     }
 
     @PostMapping
